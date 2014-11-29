@@ -5,8 +5,8 @@ def read_file(fname):
     return open(os.path.join(os.path.dirname(__file__), fname)).read()
 
 setup(
-    name="bing_translator",
-	packages = ["src"],
+	name="bing_translator",
+	packages = ["bing_translator"],
 	version = '0.1',
 	description = "Micrososft Translator API V2 for Python",
 	long_description = read_file("LICENSE.txt"),
