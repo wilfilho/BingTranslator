@@ -53,6 +53,7 @@ One of the other methods in this library, much like the translate method is **tr
 | uri            | A string containing the content location of this translation.                                          |
 | user           | A string used to track the originator of the submission.                                               |
 | state          | User state to help correlate request and response. The same contents will be returned in the response. |
+
 Example of use:
 ```python
 phrases_translated = translator.translate_texts(["Hello World","Python is all"], "pt") #translating phrase
@@ -99,6 +100,7 @@ The speak_phrase method is responsible for providing us with a link to download 
 | language       | Language in which the text should be spoken.                                                                                                                                                                                                                                                                 |
 | format_audio   | This parameter defines the audio format. By default the audio defined by Microsoft API file format is the "audio/wav", but you can use another parameter, which is, "audio/mp3". This parameter is not required.                                                                                             |
 | option         | This parameter defines the audio quality. By default, the quality used by the API is "MinQuality", but we can use the value "MaxQuality" to indicate that we want a better quality audio with. Worth to emphasize that this will influence the size of the file to download. This parameter is not required. |
+
 Example of use:
 
 ```python
