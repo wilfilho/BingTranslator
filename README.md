@@ -1,4 +1,4 @@
-## Bing Translator API for Python
+## Microsoft Translator API for Python
 
 The *Microsoft* offers an online translation API to make requests through various forms (Http, Ajax, SOAP or OData.). The features provided by this API are very useful when we want to perform translations, multiple translations or even listen to the pronunciation of a certain word or phrase in desejada.Esta language library is an implementation in Python that allows to use most of the features present in this API. Basically what we do is, make a request to the Ajax API method by **requests** module and get the desired response. Below is a list of features offered by this library:
 
@@ -12,7 +12,7 @@ The *Microsoft* offers an online translation API to make requests through variou
 
 You can use pip to make download and installation of the library. It is noteworthy that, it uses three modules: requests, json and urllib. Using the pip:
 ```sh
-$ pip install bing_translator
+$ pip install ms_translator
 ```
 ### Getting credentials
 
@@ -22,12 +22,12 @@ The information that we will use are: the *client_id* and *client_secret*. These
 ### Getting Started
 The use of the library is very simple, just by knowing what are the methods and their parameters. For example, we do a simple translation as follows:
 ```python
-from bing_translator import Bing #importing Bing class for translations.
+from ms_translator import Translator #importing Translator class for translations.
 
 client_id = "<My-Client-Id>"
 client_secret = "<My-Client-Secret>"
 
-translator = Bing(client_id, client_secret)
+translator = Translator(client_id, client_secret)
 phrase_translated = translator.translate("Hello World", "pt") #translating phrase
 print (phrase_translated)
 ```
@@ -109,19 +109,19 @@ print (trans)
 ```
 In return we will have a string containing a URL to perform download the audio. To do this, we can use **AudioSpeaked** class with the **download** method, to use the audio locally. Example of use:
 ```python
-from bing_translator import Bing, AudioSpeaked
+from ms_translator import Translator, AudioSpeaked
 
 client_id = "<My-Client-Id>"
 client_secret = "<My-Client-Secret>"
 
-translator = Bing(client_id, client_secret)
+translator = Translator(client_id, client_secret)
 url = translator.speak_phrase("Back to the future", "en", "audio/mp3", "MaxQuality")
 AudioSpeaked.download(url, "audios/","aud01.mp3")
 ```
 The **download** of AudioSpeaked class classmethod receive three parameters. The first is the url to download the audio, the second the directory where it is stored and finally the audio name. Note that audio extension must be the same length stated in the call **speak_phrase** method. For example, in the above code I set that I would have an extension "audio/mp3" and download method I set the file name with an extension mp3.
 
 ### License
-Bing Translator API for Python
+Microsoft Translator API for Python
 
 Copyright (c) 2014, Will Filho, All rights reserved.
 

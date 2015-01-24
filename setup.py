@@ -8,9 +8,9 @@ except ImportError:
     raise Exception("warning: pypandoc module not found, could not convert Markdown to RST")
 
 setup(
-    name="bing_translator",
-	packages = ["bing_translator"],
-	version = '0.1',
+    name="ms_translator",
+	packages = ["ms_translator"],
+	version = '0.2',
 	description = "Micrososft Translator API V2 for Python",
 	long_description = read_md("README.md"),
 	author = "Will Filho",
@@ -18,7 +18,7 @@ setup(
 	license = "LGPL",
 	install_requires = ["requests"],
 	keywords = ["microsoft translator","bing"],
-	url = "https://github.com/dookgulliver/bing_translator",
+	url = "https://github.com/dookgulliver/ms_translator",
 	classifiers = [
 		"Development Status :: 5 - Production/Stable",
         "Intended Audience :: Developers",

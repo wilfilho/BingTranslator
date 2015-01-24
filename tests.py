@@ -15,7 +15,7 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with bing_translator. If not, see <http://www.gnu.org/licenses/>.
 
-from bing_translator import Bing
+from ms_translator import Translator
 import unittest
 
 
@@ -25,7 +25,7 @@ CLIENT_SECRET = "RWfmb4O7eO3zbnlTqZaPu8cBmMthaXkonxQA9sQnQ+0="
 
 class TestAll(unittest.TestCase):
 	def setUp(self):
-		self.translator = Bing(CLIENT_ID, CLIENT_SECRET)
+		self.translator = Translator(CLIENT_ID, CLIENT_SECRET)
 
 	def test_detect_language(self):
 		lang_detect = self.translator.detect("Hello World")
