@@ -1,6 +1,6 @@
 # Copyright 2014 Will Filho <dookgulliver@willfilho.com>
 #
-# This file is part of bing_translator.
+# This file is part of BingTranslator.
 #
 # This program free software: you can redistribute it and/or modify
 # it under the terms of the GNU Lesser General Public License as published by
@@ -13,9 +13,9 @@
 # GNU Lesser General Public License for more details.
 #
 # You should have received a copy of the GNU Lesser General Public License
-# along with bing_translator. If not, see <http://www.gnu.org/licenses/>.
+# along with BingTranslator. If not, see <http://www.gnu.org/licenses/>.
 
-from ms_translator import Translator
+from BingTranslator import Translator
 import unittest
 
 

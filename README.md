@@ -12,7 +12,7 @@ The *Microsoft* offers an online translation API to make requests through variou
 
 You can use pip to make download and installation of the library. It is noteworthy that, it uses three modules: requests, json and urllib. Using the pip:
 ```sh
-$ pip install ms_translator
+$ pip install BingTranslator
 ```
 
 ### Getting credentials
@@ -25,7 +25,7 @@ The information that we will use are: the *client_id* and *client_secret*. These
 
 The use of the library is very simple, just by knowing what are the methods and their parameters. For example, we do a simple translation as follows:
 ```python
-from ms_translator import Translator #importing Translator class for translations.
+from BingTranslator import Translator #importing Translator class for translations.
 
 client_id = "<My-Client-Id>"
 client_secret = "<My-Client-Secret>"
@@ -115,7 +115,7 @@ print (trans)
 ```
 In return we will have a string containing a URL to perform download the audio. To do this, we can use **AudioSpeaked** class with the **download** method, to use the audio locally. Example of use:
 ```python
-from ms_translator import Translator, AudioSpeaked
+from BingTranslator import Translator, AudioSpeaked
 
 client_id = "<My-Client-Id>"
 client_secret = "<My-Client-Secret>"
