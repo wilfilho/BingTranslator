@@ -14,12 +14,15 @@ You can use pip to make download and installation of the library. It is notewort
 ```sh
 $ pip install ms_translator
 ```
+
 ### Getting credentials
 
 First of all, for us to use Microsoft's API we have to get a credential. Which to some extent is free, unlike the Google Translator API that is only within 30 days. It is noteworthy that the restriction to the free acquisition of credentials is 2 million characters per month, that is, you should not spend it. If you have an application that is used by a lot of customers, recommend reviewing it. To see all the steps that must be taken, go to the following link and follow the tutorial present in it: http://blogs.msdn.com/b/translation/p/gettingstarted1.aspx
 
 The information that we will use are: the *client_id* and *client_secret*. These credentials are used in the request for adqurirmos the token that allows us to perform translations.
+
 ### Getting Started
+
 The use of the library is very simple, just by knowing what are the methods and their parameters. For example, we do a simple translation as follows:
 ```python
 from ms_translator import Translator #importing Translator class for translations.
@@ -34,6 +37,7 @@ print (phrase_translated)
 To see the code of all languages, access the following link:
 http://msdn.microsoft.com/en-us/library/hh456380.aspx.
 In the previous example, we use the *'en'* code to have displaced who wish to translate our words into Portuguese.
+
 ##### The *translate* method
 
 The translate method may receive a number of parameters, as we can see in the table below.
@@ -64,6 +68,7 @@ The return will be something like this:
 [{'OriginalTextSentenceLengths': [9], 'TranslatedText': 'Olá o mundo', 'From': 'en', 'TranslatedTextSentenceLengths': [12]}, {'OriginalTextSentenceLengths': [10], 'TranslatedText': 'Python é tudo', 'From': 'en', 'TranslatedTextSentenceLengths': [15]}]
 ```
 ##### The *get_translations* method
+
 The **get_translations** method returns all possible translations for a word in the language. This method is very similar to the previous (**translate_texts**), the difference is that you must pass as parameter only a text/word and he has a parameter called maxTranslations that is required. This parameter defines the number of possible translations that the API should return to you. Example of use:
 ```python
 trans = translator.get_translations("Speak", "pt", 2)
@@ -79,6 +84,7 @@ trans = translator.get_translations(["Speak","Fly"], "pt", 2)
 print (trans)
 ```
 ### The *detect* method
+
 The detect method, as its name implies, identifies the language used in a given sentence. He will receive only one parameter, which is the desired phrase. Example of use:
 ```python
 trans = translator.detect("My name is Jonas")
@@ -121,6 +127,7 @@ AudioSpeaked.download(url, "audios/","aud01.mp3")
 The **download** of AudioSpeaked class classmethod receive three parameters. The first is the url to download the audio, the second the directory where it is stored and finally the audio name. Note that audio extension must be the same length stated in the call **speak_phrase** method. For example, in the above code I set that I would have an extension "audio/mp3" and download method I set the file name with an extension mp3.
 
 ### License
+
 Microsoft Translator API for Python
 
 Copyright (c) 2014, Will Filho, All rights reserved.

@@ -1,0 +1,10 @@
+README.rst
+setup.cfg
+setup.py
+ms_translator/__init__.py
+ms_translator.egg-info/PKG-INFO
+ms_translator.egg-info/SOURCES.txt
+ms_translator.egg-info/dependency_links.txt
+ms_translator.egg-info/pbr.json
+ms_translator.egg-info/requires.txt
+ms_translator.egg-info/top_level.txt
