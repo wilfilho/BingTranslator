@@ -1,18 +1,11 @@
 from setuptools import setup
-import os
-
-try:
-    from pypandoc import convert
-    read_md = lambda f: convert(f, 'rst')
-except ImportError:
-    raise Exception("warning: pypandoc module not found, could not convert Markdown to RST")
 
 setup(
     name="ms_translator",
 	packages = ["ms_translator"],
 	version = '0.2',
 	description = "Micrososft Translator API V2 for Python",
-	long_description = read_md("README.md"),
+	long_description = "README.rst",
 	author = "Will Filho",
 	author_email = "dookgulliver@willfilho.com",
 	license = "LGPL",
