@@ -1,4 +1,4 @@
-## Microsoft Translator API for Python
+## BingTranslator
 
 The *Microsoft* offers an online translation API to make requests through various forms (Http, Ajax, SOAP or OData.). The features provided by this API are very useful when we want to perform translations, multiple translations or even listen to the pronunciation of a certain word or phrase in desejada.Esta language library is an implementation in Python that allows to use most of the features present in this API. Basically what we do is, make a request to the Ajax API method by **requests** module and get the desired response. Below is a list of features offered by this library:
 
@@ -128,7 +128,7 @@ The **download** of AudioSpeaked class classmethod receive three parameters. The
 
 ### License
 
-Microsoft Translator API for Python
+BingTranslator
 
 Copyright (c) 2014, Will Filho, All rights reserved.
 
