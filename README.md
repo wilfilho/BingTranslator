@@ -83,17 +83,17 @@ The other very similar method to this is the **get_multiple_translations**. The 
 trans = translator.get_translations(["Speak","Fly"], "pt", 2)
 print (trans)
 ```
-### The *detect* method
+### The *detect_language* method
 
 The detect method, as its name implies, identifies the language used in a given sentence. He will receive only one parameter, which is the desired phrase. Example of use:
 ```python
-trans = translator.detect("My name is Jonas")
+trans = translator.detect_language("My name is Jonas")
 print (trans)
 ```
 In return we will have the code of the corresponding language to the text. In the example above, we get an answer the following: 'en'; Indicating that the text is in English.
 We can also identify the present languages in various texts by simply we use the **detect_texts** method, which receive as parameter a list of strings. Example of use:
 ```python
-trans = translator.detect_texts(["My name is Jonas","Voar, subir, cair."])
+trans = translator.detect_languages(["My name is Jonas","Voar, subir, cair."])
 print (trans)
 ```
 ##### The *speak_phrase* method
@@ -113,18 +113,18 @@ Example of use:
 trans = translator.speak_phrase("Back to the future", "en", "audio/mp3", "MaxQuality")
 print (trans)
 ```
-In return we will have a string containing a URL to perform download the audio. To do this, we can use **AudioSpeaked** class with the **download** method, to use the audio locally. Example of use:
+In return we will have a string containing a URL to perform download the audio. To do this, we can use **DownloadAudio** class with the **download** method, to use the audio locally. Example of use:
 ```python
-from BingTranslator import Translator, AudioSpeaked
+from BingTranslator import Translator, DownloadAudio
 
 client_id = "<My-Client-Id>"
 client_secret = "<My-Client-Secret>"
 
 translator = Translator(client_id, client_secret)
 url = translator.speak_phrase("Back to the future", "en", "audio/mp3", "MaxQuality")
-AudioSpeaked.download(url, "audios/","aud01.mp3")
+DownloadAudio.download(url, "audios/","aud01.mp3")
 ```
-The **download** of AudioSpeaked class classmethod receive three parameters. The first is the url to download the audio, the second the directory where it is stored and finally the audio name. Note that audio extension must be the same length stated in the call **speak_phrase** method. For example, in the above code I set that I would have an extension "audio/mp3" and download method I set the file name with an extension mp3.
+The **download** of DownloadAudio class static method receive three parameters. The first is the url to download the audio, the second the directory where it is stored and finally the audio name. Note that audio extension must be the same length stated in the call **speak_phrase** method. For example, in the above code I set that I would have an extension "audio/mp3" and download method I set the file name with an extension mp3.
 
 ### License
 

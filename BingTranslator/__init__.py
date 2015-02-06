@@ -15,152 +15,14 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with BingTranslator. If not, see <http://www.gnu.org/licenses/>.
 
-from enum import Enum
+from BingTranslator.models import (TranslatorMode, TextModel, TextArrayModel,
+                                    TranslationsModel, SpeakModel, 
+                                    TextDetectLanguageModel)
+from BingTranslator.utils import TextUtils, DownloadAudio
 import urllib
 import json
 import requests
 
-
-class TranslatorMode(Enum):
-    Detect = "http://api.microsofttranslator.com/V2/Ajax.svc/Detect"
-    DetectArray = "http://api.microsofttranslator.com/V2/Ajax.svc/DetectArray"
-    LanguagesForTranslate = "http://api.microsofttranslator.com/V2/Ajax.svc/GetLanguagesForTranslate"
-    LanguagesForSpeak = "http://api.microsofttranslator.com/V2/Ajax.svc/GetLanguagesForSpeak"
-    Translations = "http://api.microsofttranslator.com/V2/Ajax.svc/GetTranslations"
-    TranslationsArray = "http://api.microsofttranslator.com/V2/Ajax.svc/GetTranslationsArray"
-    SpeakMode = "http://api.microsofttranslator.com/V2/Ajax.svc/Speak"
-    Translate = "http://api.microsofttranslator.com/V2/Ajax.svc/Translate"
-    TranslateArray = "http://api.microsofttranslator.com/V2/Ajax.svc/TranslateArray"
-
-
-class TextUtils(object):
-    @classmethod
-    def put_suit_on_from_key(cls, dict_o, value):
-        dict_o["from"] = value
-        del dict_o["from_lang"]
-        return dict_o
-
-    @classmethod
-    def format_list_to_send(self, list_data):
-        formatted = "["
-        for text in list_data:
-            if text == list_data[-1]:
-                formatted += "\"{0}\"]".format(text)
-                return formatted
-            formatted += "\"{0}\",".format(text)
-        return formatted
-
-
-class TextModel(object):
-    def __init__(self, text, to_lang, from_lang=None, 
-                content_type="text/plain", category=None):
-        """
-            This class is important because it leaves the bullet ready 
-            to trigger.
-        """
-        self.text = text
-        self.to = to_lang
-        self.from_lang = from_lang
-        self.contentType = content_type
-        self.category = category
-
-    def to_dict(self):
-        dict_obj = TextUtils.put_suit_on_from_key(self.__dict__, 
-                                                    self.from_lang)
-        return dict_obj
-
-
-class TextArrayModel(object):
-    def __init__(
-            self, texts, to_lang, from_lang=None, content_type="text/plain",
-            category=None, uri=None, user=None, state=None):
-        """
-            This is one model for TranslateArray mode of requisition.
-        """
-        self.texts = texts
-        self.from_lang = from_lang
-        self.to = to_lang
-        self.contentType = content_type #name don't like a Python because the dictionnary
-        self.category = category
-        self.uri = uri
-        self.user = user
-        self.state = state
-
-    def to_dict(self):
-        dict_initial = TextUtils.put_suit_on_from_key(self.__dict__, 
-                                                        self.from_lang)
-        return dict_initial
-
-
-class TranslationsModel(TextArrayModel):
-    def __init__(
-            self, text, to_lang, max_translations, from_lang=None, 
-            content_type="text/plain", category=None, uri=None, user=None, 
-            state=None):
-        """
-            This is one model for Translations mode of requisition.
-        """
-        TextArrayModel.__init__(self, text, to_lang, from_lang, 
-                                content_type, category, uri, user, state)
-        self.maxTranslations = max_translations
-        self.text = text
-
-    def clean_text_property(self):
-        self.__dict__.pop("texts")
-
-
-class TextDetectModel(object):
-    def __init__(self, text):
-        self.text = text
-
-    def to_dict(self):
-        return self.__dict__
-
-    def change_property(self):
-            self.__dict__["texts"] = self.text
-            self.__dict__.pop("text")
-
-
-class SpeakModel(object):
-    def __init__(self, text, language, format_audio=None, option=None):
-        """
-            This class is similar to TranslatorText, but with different 
-            properties.
-        """
-        self.text = text
-        self.language = language
-        self.format = format_audio
-        self.options = option
-
-    def to_dict(self):
-        return self.__dict__
-
-
-class AudioSpeaked(object):
-    @classmethod
-    def download(cls, url, path, name_audio):
-        """
-            Params:
-
-                ::url = Comprises the url used to download the audio.
-                ::path =  Comprises the location where the file should be saved.
-                ::name_audio = Is the name of the desired audio.
-            
-            Definition:
-
-            Basically, we do a get with the requests module and after that 
-            we recorded in the desired location by the developer or user, 
-            depending on the occasion.
-        """
-        if path is not None:
-            with open(str(path+name_audio), 'wb') as handle:
-                response = requests.get(url, stream = True)
-                if not response.ok:
-                    raise Exception("Error in audio download.")
-                for block in response.iter_content(1024):
-                    if not block:
-                        break
-                    handle.write(block)
 
 
 class Translator(object):
@@ -175,7 +37,7 @@ class Translator(object):
             Get token for make request. The The data obtained herein are used 
             in the variable header.
 
-            Type of return:
+            Returns:
                 To perform the request, receive in return a dictionary
                 with several keys. With this method only return the token
                 as it will use it for subsequent requests, such as a 
@@ -204,7 +66,7 @@ class Translator(object):
             This is the final step, where the request is made, the data is 
             retrieved and returned.
         """
-        resp = requests.get(translation_url, params=params,headers=headers)
+        resp = requests.get(translation_url, params=params, headers=headers)
         resp.encoding = "UTF-8-sig"
         result = resp.json()
         return result
@@ -226,18 +88,16 @@ class Translator(object):
             Returns one array of language supported by api for translate.
         """
         mode_translate = TranslatorMode.LanguagesForTranslate.value
-        infos_translate = None
-        return self._get_content(infos_translate, mode_translate)
+        return self._get_content(None, mode_translate)
 
     def get_languages_for_speak(self):
         """
             Returns one array of language supported by api for speak.
         """
         mode_translate = TranslatorMode.LanguagesForSpeak.value
-        infos_translate = None
-        return self._get_content(infos_translate, mode_translate)
+        return self._get_content(None, mode_translate)
 
-    def detect(self, text):
+    def detect_language(self, text):
         """
             Params:
                 ::text = Text for identify language.
@@ -245,19 +105,24 @@ class Translator(object):
             Returns:
                 Returns language present on text.
         """
-        infos_translate = TextDetectModel(text).to_dict()
+        infos_translate = TextDetectLanguageModel(text).to_dict()
         mode_translate = TranslatorMode.Detect.value
         return self._get_content(infos_translate, mode_translate)
 
-    def detect_texts(self, texts):
+    def detect_languages(self, texts):
         """
-            Returns language present on array of text.
+            Params:
+                ::texts = Array of texts for detect languages
+
+            Returns:
+                Returns language present on array of text.
         """
         text_list = TextUtils.format_list_to_send(texts)
-        infos_translate = TextDetectModel(text_list)
-        infos_translate.change_property()
+        infos_translate = TextDetectLanguageModel(text_list).to_dict()
+        texts_for_detect = TextUtils.change_key(infos_translate, "text",
+                                                    "texts", infos_translate["text"])
         mode_translate = TranslatorMode.DetectArray.value
-        return self._get_content(infos_translate.to_dict(), mode_translate)
+        return self._get_content(texts_for_detect, mode_translate)
 
     def translate(self, text, to_lang, from_lang=None, 
                 content_type="text/plain", category=None):
@@ -284,8 +149,8 @@ class Translator(object):
             user=None, state = None):
         texts_formated = TextUtils.format_list_to_send(texts)
         infos_translate = TextArrayModel(
-            texts_formated, to_lang, from_lang, content_type, category, uri, 
-            user, state).to_dict()
+            texts_formated, to_lang, from_lang, 
+            content_type, category, uri, user, state).to_dict()
         mode_translate = TranslatorMode.TranslateArray.value
         return self._get_content(infos_translate, mode_translate)
 
